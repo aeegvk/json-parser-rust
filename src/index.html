@@ -1,18 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSON Prettifier</title>
+    <title>JSON Parser</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
         textarea {
             width: 45%;
             height: 300px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            color: white;
+            background-color: #007BFF;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        div {
+            margin: auto;
+            display: block;
+            text-align: center;
+        }
+
+        button {
+            margin: auto;
+            display: block;
         }
     </style>
 </head>
 <body>
-    <textarea id="input"></textarea>
-    <textarea id="output" readonly></textarea>
-    <button onclick="prettify()">Prettify</button>
+    <div>
+        <label for="input">Json:</label><br> <!-- Added <br> tag -->
+        <textarea id="input"></textarea>
+    </div>
+    <div>
+        <label for="output">Result:</label><br> <!-- Added <br> tag -->
+        <textarea id="output" readonly></textarea>
+    </div>
+    <div>
+        <button onclick="prettify()">Prettify</button>
+    </div>
 
     <script>
         async function prettify() {
