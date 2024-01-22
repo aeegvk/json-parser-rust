@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Prettifier</title>
+    <style>
+        textarea {
+            width: 45%;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="input"></textarea>
+    <textarea id="output" readonly></textarea>
+    <button onclick="prettify()">Prettify</button>
+
+    <script>
+        async function prettify() {
+            const input = document.getElementById('input').value;
+            const response = await fetch('http://localhost:8000/prettify', {
+                method: 'POST',
+                body: input,
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const output = await response.text();
+            document.getElementById('output').value = output;
+        }
+    </script>
+</body>
+</html>
