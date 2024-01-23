@@ -10,12 +10,19 @@ use std::io::Read; // Add import for Read trait
 use rocket::response::NamedFile;
 use std::path::PathBuf;
 
+fn try_fix_json(json: &str) -> String {
+    json.replace("'", "\"") // replace single quotes with double quotes
+        .replace(",}", "}") // remove trailing commas in objects
+        .replace(",]", "]") // remove trailing commas in arrays
+}
+
 #[post("/prettify", data = "<data>")]
 fn prettify(data: Data) -> content::Json<String> {
     let mut json = String::new();
     if let Err(error) = data.open().read_to_string(&mut json) {
         return content::Json(format!("Error reading data: {}", error));
     }
+    json = try_fix_json(&json);
     let v: Value = match serde_json::from_str(&json) {
         Ok(value) => value,
         Err(error) => return content::Json(format!("Error parsing JSON: {}", error)),
